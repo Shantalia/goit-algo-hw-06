@@ -14,7 +14,7 @@ class Phone(Field):
     def validation(self):
         phone = self.value
         if len(phone) != 10:
-            return "Wrong phone number!"
+            return Exception
         else:
 	        return phone
 
@@ -86,9 +86,9 @@ print(john_record.edit_phone("1234567890", "00099999"))
 print(john_record)
 print(john_record.find_phone("00099999"))
 
-jane_record = Record("Jane")
-book.add_record(jane_record)
-print(book.find("John"))
+# jane_record = Record("Jane")
+# book.add_record(jane_record)
+# print(book.find("John"))
 
 # for name, record in book.data.items():
 #         print(record)

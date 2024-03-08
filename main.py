@@ -55,33 +55,40 @@ class Record:
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
 class AddressBook(UserDict):
-    def add_record(self, name, phone):
-        self.data[name] = Phone(phone)
-        pass
+    def add_record(self, name):
+        self.data[name] = Record(name).phones
+        return "Contact added"
 
     def find(self, name):
-        if self.data[name]:
-            return self.data[name]
-        else:
-            return "No such contact!"
+        for nm in self.data.keys:
+            if nm == name:
+                return self.data[nm]
+            else:
+                return "No such contact!"
+        
     def delete(self, name):
-        if self.data[name]:
-            
-            return "Contact deleted!"
-        else:
-            return "No such contact!"
+        for nm in self.data.keys:
+            if nm == name:
+                self.data.pop[nm]
+                return "Contact deleted!"
+            else:
+                return "No such contact!"
 
 # Створення нової адресної книги
 book = AddressBook()
 john_record = Record("John")
-john_record.add_phone("12345678901")
+john_record.add_phone("1234567890")
 john_record.add_phone("5365456")
 print(john_record)
+book.add_record(john_record)
 #john_record.remove_phone("1234567890")
 print(john_record.edit_phone("1234567890", "00099999"))
 print(john_record)
 print(john_record.find_phone("00099999"))
-# jane_record = Record("Jane")
-# book.add_record(jane_record)
+
+jane_record = Record("Jane")
+book.add_record(jane_record)
+print(book.find("John"))
+
 # for name, record in book.data.items():
 #         print(record)

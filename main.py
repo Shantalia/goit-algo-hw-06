@@ -8,7 +8,6 @@ class Field:
         return str(self.value)
 
 class Name(Field):
-    
 		pass
 
 class Phone(Field):
@@ -24,29 +23,43 @@ class Record:
         self.name = Name(name)
         self.phones = []
     
-    def add_phone(self):
-        phone = Phone()
+    def add_phone(self, phone):
+        phone = Phone(phone)
         phone.validation()
-        #self.phones.append(phone)
-        pass
-    def remove_phone(self):
-        pass
+        self.phones.append(phone)
+
+    def remove_phone(self, phone):
+        for ph in self.phones:
+            if ph == phone:
+                self.phones.remove(ph)
+                return "Phone deleted."
+            else:
+                return "No such phone!"
+
     def edit_phone(self,  old_phone, new_phone):
         pass
+
     def find_phone(self):
         pass
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
 class AddressBook(UserDict):
-    def add_record(self, name):
-        #self.data[name] = Phone()
+    def add_record(self, name, phone):
+        self.data[name] = Phone(phone)
         pass
 
-    def find(self):
-        pass
-    def delete(self):
-	    pass
+    def find(self, name):
+        if self.data[name]:
+            return self.data[name]
+        else:
+            return "No such contact!"
+    def delete(self, name):
+        if self.data[name]:
+            
+            return "Contact deleted!"
+        else:
+            return "No such contact!"
 
 # Створення нової адресної книги
 book = AddressBook()

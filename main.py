@@ -23,12 +23,12 @@ class Record:
         self.name = Name(name)
         self.phones = []
     
-    def add_phone(self, phone):
+    def add_phone(self, phone): #☑
         phone = Phone(phone)
         phone.validation()
         self.phones.append(phone)
 
-    def remove_phone(self, phone):
+    def remove_phone(self, phone): #☑
         for ph in self.phones:
             if ph.value == phone:
                 self.phones.remove(ph)
@@ -36,11 +36,21 @@ class Record:
             else:
                 return "No such phone!"
 
-    def edit_phone(self,  old_phone, new_phone):
-        pass
+    def edit_phone(self,  old_phone, new_phone): #☑
+        for ph in self.phones:
+            if ph.value == old_phone:
+                ph.value = new_phone
+                return "Phone changed"
+            else:
+                return "No such phone!"
 
-    def find_phone(self):
-        pass
+    def find_phone(self, phone): #☑
+        for ph in self.phones:
+            if ph.value == phone:
+                return phone
+            else:
+                return "No such phone!"
+            
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
@@ -64,11 +74,13 @@ class AddressBook(UserDict):
 # Створення нової адресної книги
 book = AddressBook()
 john_record = Record("John")
-john_record.add_phone("1234567890")
+john_record.add_phone("12345678901")
 john_record.add_phone("5365456")
 print(john_record)
-john_record.remove_phone("1234567890")
+#john_record.remove_phone("1234567890")
+print(john_record.edit_phone("1234567890", "00099999"))
 print(john_record)
+print(john_record.find_phone("00099999"))
 # jane_record = Record("Jane")
 # book.add_record(jane_record)
 # for name, record in book.data.items():

@@ -30,7 +30,7 @@ class Record:
 
     def remove_phone(self, phone):
         for ph in self.phones:
-            if ph == phone:
+            if ph.value == phone:
                 self.phones.remove(ph)
                 return "Phone deleted."
             else:
@@ -65,8 +65,11 @@ class AddressBook(UserDict):
 book = AddressBook()
 john_record = Record("John")
 john_record.add_phone("1234567890")
+john_record.add_phone("5365456")
 print(john_record)
-jane_record = Record("Jane")
-book.add_record(jane_record)
-for name, record in book.data.items():
-        print(record)
+john_record.remove_phone("1234567890")
+print(john_record)
+# jane_record = Record("Jane")
+# book.add_record(jane_record)
+# for name, record in book.data.items():
+#         print(record)

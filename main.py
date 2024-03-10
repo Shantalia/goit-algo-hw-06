@@ -11,7 +11,9 @@ class Name(Field):
 		pass
 
 class Phone(Field):
-    def validation(self): #☑
+    def __init__(self, value):
+        validation(value)
+    def validation(self, value): #☑
         phone = self.value
         if len(phone) != 10:
             return False

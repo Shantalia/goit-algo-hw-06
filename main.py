@@ -12,13 +12,11 @@ class Name(Field):
 
 class Phone(Field):
     def __init__(self, value):
-        validation(value)
-    def validation(self, value): #☑
-        phone = self.value
-        if len(phone) != 10:
-            return False
+        if len(value) == 10 and value.isdigit():
+            super().__init__(value)
         else:
-	        return True
+            raise ValueError('Phone is incorrect')
+        
 
 class Record:
     def __init__(self, name):
@@ -26,40 +24,30 @@ class Record:
         self.phones = []
     
     def add_phone(self, phone): #☑
-        phone = Phone(phone)
-        if phone.validation():
-            self.phones.append(phone)
-        else:
-            return "Wrong number"
+        self.phones.append(Phone(phone))
 
     def remove_phone(self, phone): #☑
         for ph in self.phones:
-            if ph.value == phone:
+            if str(ph.value) == phone:
                 self.phones.remove(ph)
-                return "Phone deleted."
             else:
                 return "No such phone!"
 
     def edit_phone(self,  old_phone, new_phone): #☑
         for ph in self.phones:
-            if ph.value == old_phone:
+            if str(ph.value) == old_phone:
                 ph.value = new_phone
-                return "Phone changed"
             else:
                 return "No such phone!"
 
     def find_phone(self, phone): #☑
         for ph in self.phones:
-            if ph.value == phone:
-                return phone
+            if str(ph.value) == phone:
+                return ph.value
+            elif str(ph.value) != phone:
+                continue
             else:
                 return "No such phone!"
-
-    def get_name(self):
-        return self.name
-    
-    def get_phones(self):
-        return self.phones
 
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
@@ -111,11 +99,14 @@ for key, record in book.data.items():
 john = book.find("John")
 john_record.edit_phone("1234567890", "1112223333")
 
-print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
+print(john_record)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
 
     # Пошук конкретного телефону у записі John
-found_phone = john_record.find_phone("5555555555")
+found_phone = john_record.find_phone("1234567890")
 print(f"{john_record.name}: {found_phone}")  # Виведення: 5555555555
 
     # Видалення запису Jane
 book.delete("Jane")
+
+for key, record in book.data.items():
+    print(f'{key} : {record}')

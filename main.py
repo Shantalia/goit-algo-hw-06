@@ -75,6 +75,8 @@ class AddressBook(UserDict):
             else:
                 return "No such contact!"
 
+
+
     # Створення нової адресної книги
 book = AddressBook()
 
@@ -102,11 +104,8 @@ john_record.edit_phone("1234567890", "1112223333")
 print(john_record)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
 
     # Пошук конкретного телефону у записі John
-found_phone = john_record.find_phone("1234567890")
+found_phone = john_record.find_phone("5555555555")
 print(f"{john_record.name}: {found_phone}")  # Виведення: 5555555555
 
     # Видалення запису Jane
 book.delete("Jane")
-
-for key, record in book.data.items():
-    print(f'{key} : {record}')
